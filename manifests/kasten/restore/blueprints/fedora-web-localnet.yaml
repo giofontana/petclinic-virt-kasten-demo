@@ -3,10 +3,6 @@ apiVersion: cr.kanister.io/v1alpha1
 metadata:
   name: fedora-web-localnet
   namespace: kasten-io
-  uid: ce70afc5-f6aa-4c0a-97cb-6c9e5a535bf6
-  resourceVersion: "11746663"
-  generation: 1
-  creationTimestamp: 2025-05-23T21:44:03Z
 actions:
   restorePostHook:
     name: ""

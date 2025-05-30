@@ -3,10 +3,6 @@ apiVersion: config.kio.kasten.io/v1alpha1
 metadata:
   name: kasten-udn-backup
   namespace: kasten-io
-  uid: d451e7c2-36d5-42b4-86e0-43ecdfbb8ebf
-  resourceVersion: "2085183"
-  generation: 2
-  creationTimestamp: 2025-05-15T17:42:48Z
 spec:
   frequency: "@onDemand"
   selector:
@@ -31,7 +27,3 @@ spec:
           enabled: true
   createdBy: kasten-io:k10-k10
   lastModifyHash: 3436436910
-status:
-  validation: Success
-  hash: 2510665629
-  specModifiedTime: 2025-05-15T17:42:48Z

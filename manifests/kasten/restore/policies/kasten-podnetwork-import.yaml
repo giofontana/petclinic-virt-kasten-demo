@@ -3,10 +3,6 @@ apiVersion: config.kio.kasten.io/v1alpha1
 metadata:
   name: kasten-podnetwork-import
   namespace: kasten-io
-  uid: 7383aee5-a7f2-4c2b-96c4-67fd07e15838
-  resourceVersion: "11784145"
-  generation: 4
-  creationTimestamp: 2025-05-23T21:49:15Z
 spec:
   frequency: "@onDemand"
   selector: {}
@@ -28,7 +24,3 @@ spec:
   createdBy: kasten-io:auth-svc
   modifiedBy: kasten-io:auth-svc
   lastModifyHash: 1522774901
-status:
-  validation: Success
-  hash: 3161241693
-  specModifiedTime: 2025-05-23T22:26:44Z

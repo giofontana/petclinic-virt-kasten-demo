@@ -3,10 +3,6 @@ apiVersion: config.kio.kasten.io/v1alpha1
 metadata:
   name: kasten-localnet-backup
   namespace: kasten-io
-  uid: eb2768b3-7f6a-43f6-9d1f-300fbd7018b6
-  resourceVersion: "18889484"
-  generation: 22
-  creationTimestamp: 2025-05-15T14:46:27Z
 spec:
   frequency: "@daily"
   retention:
@@ -41,7 +37,3 @@ spec:
   createdBy: kasten-io:k10-k10
   modifiedBy: kasten-io:auth-svc
   lastModifyHash: 1984411509
-status:
-  validation: Success
-  hash: 559266913
-  specModifiedTime: 2025-05-29T05:03:28Z

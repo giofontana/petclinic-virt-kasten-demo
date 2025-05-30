@@ -3,10 +3,6 @@ apiVersion: config.kio.kasten.io/v1alpha1
 metadata:
   name: kasten-udn-import
   namespace: kasten-io
-  uid: 77add136-56ed-476e-8c98-31aa679199f1
-  resourceVersion: "1715248"
-  generation: 2
-  creationTimestamp: 2025-05-15T21:07:47Z
 spec:
   frequency: "@onDemand"
   selector: {}
@@ -19,7 +15,3 @@ spec:
           namespace: kasten-io
   createdBy: kasten-io:k10-k10
   lastModifyHash: 760407889
-status:
-  validation: Success
-  hash: 1504832532
-  specModifiedTime: 2025-05-15T21:07:47Z
