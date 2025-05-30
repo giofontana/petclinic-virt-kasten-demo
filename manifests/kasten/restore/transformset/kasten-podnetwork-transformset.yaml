@@ -1,0 +1,22 @@
+kind: TransformSet
+apiVersion: config.kio.kasten.io/v1alpha1
+metadata:
+  name: kasten-podnetwork-transformset
+  namespace: kasten-io
+  uid: 3aa231eb-3024-42c2-8150-f26a0d773c15
+  resourceVersion: "11768627"
+  generation: 1
+  creationTimestamp: 2025-05-23T22:09:07Z
+spec:
+  transforms:
+    - subject:
+        name: petclinic
+        resource: routes
+      name: route-transform
+      json:
+        - op: replace
+          path: /spec/host
+          value: petclinic-kasten-podnetwork.apps.cluster-ls528.dynamic.redhatworkshops.io
+status:
+  observedGeneration: 1
+  validation: Success

@@ -1,0 +1,34 @@
+kind: Policy
+apiVersion: config.kio.kasten.io/v1alpha1
+metadata:
+  name: kasten-podnetwork-import
+  namespace: kasten-io
+  uid: 7383aee5-a7f2-4c2b-96c4-67fd07e15838
+  resourceVersion: "11784145"
+  generation: 4
+  creationTimestamp: 2025-05-23T21:49:15Z
+spec:
+  frequency: "@onDemand"
+  selector: {}
+  actions:
+    - action: import
+      importParameters:
+        receiveString: bIzAPpoanmFSyG1Bkz02l5VIcnYJcwq9+zSd8lIUSZwWGb94lVuYeM6CQumB5f8rMFfezKuNGU+u7zELhTr9mhgEsV8QcOagJpXy2aSokceRqf9vx2NqBjKB0oD/LpIzb70qpRFqir9JibOQ7NySwxSbMfuS0xF13GjdYRG37P+fw5o6IES6vTyysVj3K0J8355+M4aytjpy00o3MTiL9929XXSzHSjrpihH94zbaJdioYyeZS3AdosMu6SFyo31Nd+eZqiLdZxhGzb/p1tgpzaarbWeauPJ3hCxFWhlTlFqRnWF4ScBpzb38s/D4cEvngwreYoHgi9YwZlywmbTTLNIpfkVb0pbp5V02sbku/Gl1x/H3ImE5il6jw701mw4uZSvNNZYzO25FDIw3YKtNk/9hLMBGqnVplak35oCfGlDkvZHFciccGUtVnbGj+74MguB8rRiOevsA0RN5F8sCSy4wJZ296wyLzqgNTlKtZEB+UhCrRqOEhlbHnpYHY2vhLjEZBPZnihzopAW0EP+nSJBtus4Q/aBcRB+esnjgCU28opBIMsX7oDouIF6zxz8/oiJBQ
+        profile:
+          name: ssc-aws-s3-bucket
+          namespace: kasten-io
+    - action: restore
+      restoreParameters:
+        transforms:
+          - subject: {}
+            json: null
+            transformSetRef:
+              name: kasten-podnetwork-transformset
+              namespace: kasten-io
+  createdBy: kasten-io:auth-svc
+  modifiedBy: kasten-io:auth-svc
+  lastModifyHash: 1522774901
+status:
+  validation: Success
+  hash: 3161241693
+  specModifiedTime: 2025-05-23T22:26:44Z

@@ -1,0 +1,29 @@
+kind: Profile
+apiVersion: config.kio.kasten.io/v1alpha1
+metadata:
+  name: ssc-aws-s3-bucket
+  namespace: kasten-io
+  uid: 27559ac6-6770-4f67-9219-40a3ae4100a1
+  resourceVersion: "1930383"
+  generation: 2
+  creationTimestamp: 2025-05-15T14:45:57Z
+spec:
+  locationSpec:
+    type: ObjectStore
+    objectStore:
+      name: ssc-aws-s3-bucket
+      objectStoreType: S3
+      path: k10/c9273888-43f3-4d78-b025-e626aa51341a/migration
+      pathType: Directory
+      region: us-east-1
+    credential:
+      secretType: AwsAccessKey
+      secret:
+        apiVersion: v1
+        kind: secret
+        name: k10secret-wl9sm
+        namespace: kasten-io
+  type: Location
+status:
+  validation: Success
+  hash: 848588777

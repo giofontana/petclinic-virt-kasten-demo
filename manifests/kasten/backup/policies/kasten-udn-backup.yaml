@@ -1,0 +1,37 @@
+kind: Policy
+apiVersion: config.kio.kasten.io/v1alpha1
+metadata:
+  name: kasten-udn-backup
+  namespace: kasten-io
+  uid: d451e7c2-36d5-42b4-86e0-43ecdfbb8ebf
+  resourceVersion: "2085183"
+  generation: 2
+  creationTimestamp: 2025-05-15T17:42:48Z
+spec:
+  frequency: "@onDemand"
+  selector:
+    matchExpressions:
+      - key: k10.kasten.io/appNamespace
+        operator: In
+        values:
+          - kasten-udn
+  actions:
+    - action: backup
+    - action: export
+      exportParameters:
+        frequency: "@onDemand"
+        receiveString: bIzAPpoanmEOwzBgpw5Ny91mQk4fDwq23A+X/lMmM4odZc8epl6fJaXaeO2HqdoMDi/CzKuNGU+u7zELhTr93wR9rxlWPsiyfKeoqu2Fl6+SjIhUwCFObEuPoKH9NotBbqMFh2caw85Pq7OQ7NzOyEm6Bcjpj1lb7FDLHRG8y8SVz5sIWlKxwUzUgl3wdikk5Zp4f6OViEJu00o3MTiL9929XXSzHSjrpihH94zbaJdioYyeZS3AdosMu6SFyo31Nd+eZqiLdZxhGzb/p1tgpzaarbWeauPJ3hCxFWhlTlFqRnWF4ScBpzb38s/D4cEvngwreYoHgi9YwZlywmbTTLNIpfkVb0pbp5V02sbku/Gl1x/H3ImE5il6jw701mw4uZSvNNZYzO25FDIw2ImndUjokLcGAaab5UWu3oJ0KTtW0bgNBdiecCRjG0DW36e5NAGU4vkgOaOrEV4P7xxlX3T6z447pqxmbn3/IzlxrosBuAYzlheWElhSYSxBCpr+kPuIMEyZwWN/o95AhwyolyJDjOspRPaBcWQhOceRl2amNasYSM8y4gQt/qaB
+        profile:
+          name: ssc-aws-s3-bucket
+          namespace: kasten-io
+        migrationToken:
+          name: kasten-udn-backup-migration-token
+          namespace: kasten-io
+        exportData:
+          enabled: true
+  createdBy: kasten-io:k10-k10
+  lastModifyHash: 3436436910
+status:
+  validation: Success
+  hash: 2510665629
+  specModifiedTime: 2025-05-15T17:42:48Z

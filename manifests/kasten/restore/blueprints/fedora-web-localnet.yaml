@@ -1,0 +1,84 @@
+kind: Blueprint
+apiVersion: cr.kanister.io/v1alpha1
+metadata:
+  name: fedora-web-localnet
+  namespace: kasten-io
+  uid: ce70afc5-f6aa-4c0a-97cb-6c9e5a535bf6
+  resourceVersion: "11746663"
+  generation: 1
+  creationTimestamp: 2025-05-23T21:44:03Z
+actions:
+  restorePostHook:
+    name: ""
+    kind: ""
+    phases:
+      - func: KubeTask
+        name: updatePetclinicService
+        objects:
+          sshSecret:
+            apiVersion: ""
+            group: ""
+            resource: ""
+            kind: Secret
+            name: fedora-web-ssh
+            namespace: kasten-localnet
+        args:
+          command:
+            - bash
+            - -o
+            - errexit
+            - -o
+            - pipefail
+            - -c
+            - |
+              echo '{{ index .Phases.updatePetclinicService.Secrets.sshSecret.Data "id_rsa" | toString }}' > id_rsa    
+              chmod 600 id_rsa
+
+              # Check if all VMs are in Running state
+              echo "Waiting for all VMs in kasten-localnet namespace to be in Running state..."
+
+              while true; do
+                ALL_RUNNING=true
+                VM_STATUS=$(oc get vmi -n kasten-localnet --no-headers)
+                
+                if [ -z "$VM_STATUS" ]; then
+                  echo "No VMs found in kasten-localnet namespace. Waiting..."
+                  ALL_RUNNING=false
+                else
+                  while read -r line; do
+                    STATUS=$(echo $line | awk '{print $3}')
+                    NAME=$(echo $line | awk '{print $1}')
+                    
+                    if [ "$STATUS" != "Running" ]; then
+                      echo "VM $NAME is in $STATUS state, waiting..."
+                      ALL_RUNNING=false
+                      break
+                    fi
+                  done <<< "$VM_STATUS"
+                fi
+                
+                if [ "$ALL_RUNNING" = true ]; then
+                  echo "All VMs in kasten-localnet namespace are in Running state"
+                  break
+                else
+                  echo "Sleeping for 10 seconds before checking again..."
+                  sleep 10
+                fi
+              done
+
+              # Proceed with the SSH commands once all VMs are running
+              MYSQL_VMI_IP=`oc get vmi fedora-mysql -n kasten-localnet --no-headers | awk '{print $4}'`
+              WEB_VMI_IP=`oc get vmi fedora-web -n kasten-localnet --no-headers | awk '{print $4}'`
+              echo "MYSQL_VM_IP: $MYSQL_VMI_IP"
+              echo "WEB_VMI_IP: $WEB_VMI_IP"
+              ssh -o StrictHostKeyChecking=no -i id_rsa fedora@${WEB_VMI_IP} "
+              MYSQL_IP=\"${MYSQL_VMI_IP}\"
+              echo \"IP: \${MYSQL_IP}\"
+              sudo sed -i \"s|jdbc:mysql://[0-9\.]*:3306/petclinic|jdbc:mysql://\${MYSQL_IP}:3306/petclinic|\" /etc/systemd/system/petclinic.service
+              sudo systemctl daemon-reload
+              sudo systemctl restart petclinic
+              "
+          image: bullseie/ubi9-oc-ssh:1.0.0
+          podAnnotations:
+            k8s.v1.cni.cncf.io/networks: '[{"name":"flatnetwork","namespace":"default","interface":"net1",
+              "ips":["192.168.67.200/18"]}]'

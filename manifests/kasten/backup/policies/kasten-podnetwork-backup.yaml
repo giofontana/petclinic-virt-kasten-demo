@@ -1,0 +1,42 @@
+kind: Policy
+apiVersion: config.kio.kasten.io/v1alpha1
+metadata:
+  name: kasten-podnetwork-backup
+  namespace: kasten-io
+  uid: cc7e1aee-84b8-4449-89bb-387db0c56ce7
+  resourceVersion: "18890039"
+  generation: 6
+  creationTimestamp: 2025-05-23T01:37:07Z
+spec:
+  frequency: "@daily"
+  retention:
+    daily: 2
+  selector:
+    matchExpressions:
+      - key: k10.kasten.io/appNamespace
+        operator: In
+        values:
+          - kasten-podnetwork
+  actions:
+    - action: backup
+    - action: export
+      exportParameters:
+        frequency: "@daily"
+        receiveString: bIzAPpoanmFSyG1Bkz02l5VIcnYJcwq9+zSd8lIUSZwWGb94lVuYeM6CQumB5f8rMFfezKuNGU+u7zELhTr9mhgEsV8QcOagJpXy2aSokceRqf9vx2NqBjKB0oD/LpIzb70qpRFqir9JibOQ7NySwxSbMfuS0xF13GjdYRG37P+fw5o6IES6vTyysVj3K0J8355+M4aytjpy00o3MTiL9929XXSzHSjrpihH94zbaJdioYyeZS3AdosMu6SFyo31Nd+eZqiLdZxhGzb/p1tgpzaarbWeauPJ3hCxFWhlTlFqRnWF4ScBpzb38s/D4cEvngwreYoHgi9YwZlywmbTTLNIpfkVb0pbp5V02sbku/Gl1x/H3ImE5il6jw701mw4uZSvNNZYzO25FDIw3YKtNk/9hLMBGqnVplak35oCfGlDkvZHFciccGUtVnbGj+74MguB8rRiOevsA0RN5F8sCSy4wJZ296wyLzqgNTlKtZEB+UhCrRqOEhlbHnpYHY2vhLjEZBPZnihzopAW0EP+nSJBtus4Q/aBcRB+esnjgCU28opBIMsX7oDouIF6zxz8/oiJBQ
+        profile:
+          name: ssc-aws-s3-bucket
+          namespace: kasten-io
+        migrationToken:
+          name: kasten-podnetwork-backup-migration-token
+          namespace: kasten-io
+        exportData:
+          enabled: true
+      retention:
+        daily: 4
+  createdBy: kasten-io:auth-svc
+  modifiedBy: kasten-io:auth-svc
+  lastModifyHash: 2754479754
+status:
+  validation: Success
+  hash: 3786935170
+  specModifiedTime: 2025-05-29T05:03:52Z
